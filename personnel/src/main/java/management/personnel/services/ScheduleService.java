@@ -17,27 +17,6 @@ public class ScheduleService {
     private UserRepository users;
 
 
-        /*UUID u0=UUID.randomUUID();
-        //UUID u1=UUID.randomUUID();
-        UUID u2=UUID.randomUUID();
-        UUID u3=UUID.randomUUID();
-        UUID u4=UUID.randomUUID();
-        UUID u5=UUID.randomUUID();
-        UUID u6=UUID.randomUUID();*/
-
-        //users.save(new User(u0,"Matthias", "Schultz","Huetteldorfer Strasse 1, 1140 Wien"));
-        //users.save(new User(u1,"Adam", "Kruger","Huetteldorfer Strasse 2, 1140 Wien"));
-        //users.save(new User(u2,"Kati", "Mayerhofer","Huetteldorfer Strasse 3, 1140 Wien"));
-        //users.save(new User(u3,"Stefan", "Fischer","Josef Baumann Gasse 1, 1220 Wien"));
-        //users.save(new User(UUID.randomUUID(),"Anita", "Weber","Josef Baumann Gasse 2, 1220 Wien"));
-        //users.save(new User(UUID.randomUUID(),"Peter", "Schmidt","Josef Baumann Gasse 3, 1220 Wien"));
-        //users.save(new User(UUID.randomUUID(),"Markus", "Wagner","Josef Baumann Gasse 4, 1220 Wien"));
-
-       // appointments.save(new Appointment(UUID.randomUUID(),u0,"","",""));
-        //appointments.save(new Appointment(UUID.randomUUID(),u1,"","",""));
-        //appointments.save(new Appointment(UUID.randomUUID(),u4,"","",""));
-        //appointments.save(new Appointment(UUID.randomUUID(),u6,"","",""));
-
     public List<User> getAllUsers()
     {
         //sorted output. probably not efficient. for a real database, can have an index.//
