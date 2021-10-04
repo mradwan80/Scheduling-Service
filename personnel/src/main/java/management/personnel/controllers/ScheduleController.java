@@ -63,6 +63,7 @@ public class ScheduleController {
     /////////////////
 
     //ruid stands for responsible user ID//
+    //Assumption: ruid is sent by the API gateway, so there is no need to check if the user exists in the users DB//
 
     //get all appointments//
     @RequestMapping(value = "/appointments", headers = "AcceptVersion=v1", method = RequestMethod.GET)

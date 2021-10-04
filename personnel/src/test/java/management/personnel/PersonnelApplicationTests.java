@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import static java.lang.Math.toIntExact;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -25,21 +26,20 @@ class PersonnelApplicationTests {
 	@Test
 	void createUser_test()
 	{
+		int origSize= toIntExact(service.getUsersNum());
+
 		service.createUser("Matthias","Schultz","Huetteldorfer Strasse 1, 1140 Wien");
 
 		List<User> L= service.getAllUsers(); //not tested yet//
 
-		assertEquals(1, L.size());
+		assertEquals(1, L.size()-origSize);
 
-		Optional<User> user = L.stream().findFirst();
+		int index=0;
+		User user = L.get(index+origSize);
 
-		assertFalse(user.isEmpty());
-
-		User actualUser= user.get();
-
-		assertEquals("Matthias", actualUser.getFirstname());
-		assertEquals("Schultz", actualUser.getLastname());
-		assertEquals("Huetteldorfer Strasse 1, 1140 Wien", actualUser.getAddress());
+		assertEquals("Matthias", user.getFirstname());
+		assertEquals("Schultz", user.getLastname());
+		assertEquals("Huetteldorfer Strasse 1, 1140 Wien", user.getAddress());
 
 
 	}
@@ -47,6 +47,8 @@ class PersonnelApplicationTests {
 	@Test
 	void getAllUsers_test()
 	{
+		int origSize= toIntExact(service.getUsersNum());
+
 		//creatUser is already tested//
 		service.createUser("Matthias","Schultz","Huetteldorfer Strasse 1, 1140 Wien");
 		service.createUser("Adam","Kruger","Huetteldorfer Strasse 2, 1140 Wien");
@@ -58,9 +60,10 @@ class PersonnelApplicationTests {
 
 		List<User> L = service.getAllUsers();
 
-		assertEquals(7, L.size());
+		assertEquals(7, L.size()-origSize);
 
 	}
+
 
 	@Test
 	void getUser_test()
@@ -90,6 +93,8 @@ class PersonnelApplicationTests {
 	@Test
 	void deleteUser_test()
 	{
+		int origSize= toIntExact(service.getUsersNum());
+
 		//creatUser is already tested//
 		service.createUser("Matthias","Schultz","Huetteldorfer Strasse 1, 1140 Wien");
 		service.createUser("Adam","Kruger","Huetteldorfer Strasse 2, 1140 Wien");
@@ -97,7 +102,8 @@ class PersonnelApplicationTests {
 
 		List<User> L= service.getAllUsers(); //already tested//
 
-		User user = L.get(1); //Adam Kruger//
+		int index=1;
+		User user = L.get(index+ origSize); //Adam Kruger//
 
 		service.deleteUser(user.getId());
 
@@ -111,6 +117,8 @@ class PersonnelApplicationTests {
 	@Test
 	void updateUser_test()
 	{
+		int origSize= toIntExact(service.getUsersNum());
+
 		//creatUser is already tested//
 		service.createUser("Stefan","Fischer","Josef Baumann Gasse 1, 1220 Wien");
 		service.createUser("Anita","Weber","Josef Baumann Gasse 2, 1220 Wien");
@@ -119,7 +127,8 @@ class PersonnelApplicationTests {
 
 		List<User> L= service.getAllUsers(); //already tested//
 
-		User user = L.get(2); //Peter Schmidt//
+		int index=2;
+		User user = L.get(index+origSize); //Peter Schmidt//
 
 		service.updateUser(user.getId(),"Simon","Huber","Josef Baumann Gasse 3, 1220 Wien");
 
@@ -132,8 +141,6 @@ class PersonnelApplicationTests {
 		assertEquals("Simon", updatedUser.getFirstname());
 		assertEquals("Huber", updatedUser.getLastname());
 		assertEquals("Josef Baumann Gasse 3, 1220 Wien", updatedUser.getAddress());
-
-
 
 	}
 }

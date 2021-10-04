@@ -23,6 +23,16 @@ public class ScheduleService {
     @Autowired
     private AppointmentRepository appointments;
 
+    public Long getUsersNum()
+    {
+        return users.count();
+    }
+
+    public Long getAppointmentsNum()
+    {
+        return appointments.count();
+    }
+
     /////////////////
     //Users functions//
     /////////////////
@@ -55,9 +65,10 @@ public class ScheduleService {
     public String updateUser(UUID id, String fname, String lname, String address)
     {
         if(!users.existsById(id))
-            return "user does not exist";
+           return "user does not exist";
 
-        User user=users.getById(id);
+        Optional<User> opuser=users.findById(id);
+        User user=opuser.get();
         user.setFirstname(fname);
         user.setLastname(lname);
         user.setAddress(address);
