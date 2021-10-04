@@ -83,6 +83,10 @@ public class ScheduleService {
             return "user does not exist";
 
         users.deleteById(id);
+        List<Appointment> apmts = getAppointmentsByUserID(id);
+        for (Appointment apm : apmts) {
+            appointments.deleteById(apm.getId());
+        }
         return "user deleted";
     }
 

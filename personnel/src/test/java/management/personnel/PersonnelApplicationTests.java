@@ -1,5 +1,6 @@
 package management.personnel;
 
+import management.personnel.models.Appointment;
 import management.personnel.models.User;
 import management.personnel.services.ScheduleService;
 import org.junit.jupiter.api.BeforeEach;
@@ -110,6 +111,39 @@ class PersonnelApplicationTests {
 		Optional<User> user2 = service.getUser(user.getId());	//already tested//
 
 		assertTrue(user2.isEmpty());
+
+
+	}
+
+	@Test
+	void deleteUserAndItsAppointments_test()
+	{
+		int origSize= toIntExact(service.getUsersNum());
+
+		//creatUser is already tested//
+		service.createUser("Matthias","Schultz","Huetteldorfer Strasse 1, 1140 Wien");
+		service.createUser("Adam","Kruger","Huetteldorfer Strasse 2, 1140 Wien");
+
+		List<User> L= service.getAllUsers(); //already tested//
+
+		int index=0;
+		User user0 = L.get(index+ origSize); //Matthias Schultz//
+
+		index=1;
+		User user1 = L.get(index+ origSize); //Adam Kruger//
+
+		service.createAppointment(user0.getId(),"mon","t1","t2");
+		service.createAppointment(user1.getId(),"tue","t1","t2");
+		service.createAppointment(user0.getId(),"wed","t1","t2");
+
+		List<Appointment> Lbefore=service.getUserAppointments(user0.getId());
+
+
+		service.deleteUser(user0.getId());
+
+		List<Appointment> Lafter=service.getUserAppointments(user0.getId());
+
+		assertEquals(2, Lbefore.size()-Lafter.size());
 
 
 	}
