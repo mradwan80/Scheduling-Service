@@ -24,13 +24,15 @@ public class Appointment {
     private UUID user;  //responsible user//
 
     @NonNull
+    private String day;
+
+    @NonNull
     private String starttime;
 
     @NonNull
     private String endtime;
 
-    @NonNull
-    private String day;
+
 
 
 }
