@@ -67,8 +67,8 @@ public class ScheduleService {
         if(!users.existsById(id))
            return "user does not exist";
 
-        Optional<User> opuser=users.findById(id);
-        User user=opuser.get();
+        Optional<User> optuser=users.findById(id);
+        User user=optuser.get();
         user.setFirstname(fname);
         user.setLastname(lname);
         user.setAddress(address);
@@ -112,25 +112,42 @@ public class ScheduleService {
 
     public String updateAppointment(UUID ruid, UUID appid, String day, String starttime, String endtime)
     {
-        //get appointment with id appid
-        //check ruid is the responsible user
+        if(!appointments.existsById(appid))
+            return "appointment does not exist";
+
+        //get appointment with id appid. check ruid is the responsible user//
+        Optional<Appointment> optapmt=appointments.findById(appid);
+        Appointment apmt=optapmt.get();
+        if(ruid.compareTo(apmt.getUser())!=0)
+            return "user is not authorized to update the appointment";
+
 
         //get appointments of ruid
         //check no conflict with date and time
 
 
-        //update
-
+        //update//
+        apmt.setDay(day);
+        apmt.setStarttime(starttime);
+        apmt.setEndtime(endtime);
+        appointments.save(apmt);
         return "appointment updated";
 
     }
 
     public String deleteAppointment(UUID ruid, UUID appid)
     {
-        //get appointment with id appid
-        //check ruid is the responsible user
+        if(!appointments.existsById(appid))
+            return "appointment does not exist";
 
-        //delete
+        //get appointment with id appid. check ruid is the responsible user//
+        Optional<Appointment> optapmt=appointments.findById(appid);
+        Appointment apmt=optapmt.get();
+        if(ruid.compareTo(apmt.getUser())!=0)
+            return "user is not authorized to delete the appointment";
+
+        //delete//
+        appointments.deleteById(appid);
 
         return "appointment deleted";
 

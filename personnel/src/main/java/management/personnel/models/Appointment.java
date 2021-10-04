@@ -20,7 +20,7 @@ public class Appointment {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private UUID id;
 
-    @NonNull
+    //@NonNull
     private UUID user;  //responsible user//
 
     @NonNull
