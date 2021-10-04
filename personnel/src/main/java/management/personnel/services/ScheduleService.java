@@ -13,6 +13,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ScheduleService {
@@ -89,6 +90,11 @@ public class ScheduleService {
     //Appointments functions//
     /////////////////
 
+    private List<Appointment> getAppointmentsByUserID(UUID ruid)
+    {
+        return appointments.findAll().stream().filter( apmt -> ruid.compareTo(apmt.getUser())==0).collect(Collectors.toList());
+    }
+
     public List<Appointment> getAllAppointments()
     {
         return appointments.findAll();
@@ -96,7 +102,9 @@ public class ScheduleService {
 
     public List<Appointment> getUserAppointments(UUID ruid)
     {
-        return appointments.findAll(); //modify
+        return getAppointmentsByUserID(ruid);
+        //return appointments.findAll().stream().filter( apmt -> ruid.compareTo(apmt.getUser())==0).collect(Collectors.toList());
+        //return appointments.findAll(); //modify
     }
 
     public String createAppointment(UUID ruid, String day, String starttime, String endtime)
