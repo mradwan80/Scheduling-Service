@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.UUID;
 
 @Entity
@@ -23,16 +25,16 @@ public class Appointment {
     //@NonNull
     private UUID user;  //responsible user//
 
-    @NonNull
-    private String day;
+    private String title;
 
     @NonNull
-    private String starttime;
+    private LocalDate day;
 
     @NonNull
-    private String endtime;
+    private LocalTime starttime;
 
-
+    @NonNull
+    private LocalTime endtime;
 
 
 }

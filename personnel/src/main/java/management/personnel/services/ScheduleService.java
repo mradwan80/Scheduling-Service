@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +34,29 @@ public class ScheduleService {
     public Long getAppointmentsNum()
     {
         return appointments.count();
+    }
+
+    private boolean ConflictExists(LocalDate d1, LocalTime starttime1, LocalTime endtime1,LocalDate d2, LocalTime starttime2, LocalTime endtime2)
+    {
+        if(d1.compareTo(d2)!=0)
+            return false;
+
+        if(starttime1.compareTo(starttime2) > 0 && starttime1.compareTo(endtime2) < 0)
+            return true;
+
+        if(endtime1.compareTo(starttime2) > 0 && endtime1.compareTo(endtime2) < 0)
+            return true;
+
+        if(starttime2.compareTo(starttime1) > 0 && starttime2.compareTo(endtime1) < 0)
+            return true;
+
+        if(endtime2.compareTo(starttime1) > 0 && endtime2.compareTo(endtime1) < 0)
+            return true;
+
+        if(starttime1.compareTo(starttime2) == 0 && endtime1.compareTo(endtime2) == 0)
+            return true;
+
+        return false;
     }
 
     /////////////////
@@ -84,8 +109,8 @@ public class ScheduleService {
 
         users.deleteById(id);
         List<Appointment> apmts = getAppointmentsByUserID(id);
-        for (Appointment apm : apmts) {
-            appointments.deleteById(apm.getId());
+        for (Appointment apmt : apmts) {
+            appointments.deleteById(apmt.getId());
         }
         return "user deleted";
     }
@@ -111,19 +136,40 @@ public class ScheduleService {
         //return appointments.findAll(); //modify
     }
 
-    public String createAppointment(UUID ruid, String day, String starttime, String endtime)
+    public String createAppointment(UUID ruid, String title, LocalDate day, LocalTime starttime, LocalTime endtime)
     {
-        //get appointments of ruid
-        //check no conflict with date and time
+        if(starttime.compareTo(endtime)>0)
+            return"invalid time: start time later than end time.";
 
-        appointments.save(new Appointment(UUID.randomUUID(), ruid, day, starttime, endtime));
+        //get appointments of ruid. check if conflicts exist with new appointment.//
+        boolean conflict=false;
+        String conflictMessage="";
+        List<Appointment> apmts=getAppointmentsByUserID(ruid);
+        for(Appointment apmti:apmts)
+        {
+            if(ConflictExists(day, starttime, endtime, apmti.getDay(), apmti.getStarttime(), apmti.getEndtime()))
+            {
+                conflict=true;
+                conflictMessage=conflictMessage+apmti.getDay().toString()+", from "+apmti.getStarttime().toString()+" to "+apmti.getEndtime().toString()+"\n";
+            }
+        }
+        if(conflict)
+        {
+            conflictMessage="Can not update the appointment with these data and time values. They conflict with the following appointment(s):\n"+conflictMessage;
+            return conflictMessage;
+        }
+
+        appointments.save(new Appointment(UUID.randomUUID(), ruid, title, day, starttime, endtime));
 
         return "appointment created";
 
     }
 
-    public String updateAppointment(UUID ruid, UUID appid, String day, String starttime, String endtime)
+    public String updateAppointment(UUID ruid, UUID appid, String title, LocalDate day, LocalTime starttime, LocalTime endtime)
     {
+        if(starttime.compareTo(endtime)>0)
+            return"invalid time: start time later than end time.";
+
         if(!appointments.existsById(appid))
             return "appointment does not exist";
 
@@ -134,12 +180,29 @@ public class ScheduleService {
             return "user is not authorized to update the appointment";
 
 
-        //get appointments of ruid
-        //check no conflict with date and time
+        //get appointments of ruid. check if conflicts exist with new appointment.//
+        boolean conflict=false;
+        String conflictMessage="";
+        List<Appointment> apmts=getAppointmentsByUserID(ruid);
+        for(Appointment apmti:apmts)
+        {
+            if(ConflictExists(day, starttime, endtime, apmti.getDay(), apmti.getStarttime(), apmti.getEndtime()))
+            {
+                conflict=true;
+                conflictMessage=conflictMessage+apmti.getDay().toString()+", from "+apmti.getStarttime().toString()+" to "+apmti.getEndtime().toString()+"\n";
+            }
+        }
+        if(conflict)
+        {
+            conflictMessage="Can not update the appointment with these data and time values. They conflict with the following appointment(s):\n"+conflictMessage;
+            return conflictMessage;
+        }
+
 
 
         //update//
         apmt.setDay(day);
+        apmt.setTitle(title);
         apmt.setStarttime(starttime);
         apmt.setEndtime(endtime);
         appointments.save(apmt);

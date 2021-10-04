@@ -4,10 +4,13 @@ import management.personnel.models.Appointment;
 import management.personnel.models.User;
 import management.personnel.services.ScheduleService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -132,9 +135,10 @@ class PersonnelApplicationTests {
 		index=1;
 		User user1 = L.get(index+ origSize); //Adam Kruger//
 
-		service.createAppointment(user0.getId(),"mon","t1","t2");
-		service.createAppointment(user1.getId(),"tue","t1","t2");
-		service.createAppointment(user0.getId(),"wed","t1","t2");
+
+		service.createAppointment(user0.getId(), "title", LocalDate.of(2021, 10, 6),LocalTime.of(13,0),LocalTime.of(14,0));
+		service.createAppointment(user1.getId(),"title",LocalDate.of(2021, 10, 7),LocalTime.of(13,0),LocalTime.of(14,0));
+		service.createAppointment(user0.getId(),"title",LocalDate.of(2021, 10, 8),LocalTime.of(13,0),LocalTime.of(14,0));
 
 		List<Appointment> Lbefore=service.getUserAppointments(user0.getId());
 
@@ -176,5 +180,23 @@ class PersonnelApplicationTests {
 		assertEquals("Huber", updatedUser.getLastname());
 		assertEquals("Josef Baumann Gasse 3, 1220 Wien", updatedUser.getAddress());
 
+	}
+
+	@Disabled
+	@Test
+	void CheckDateAndTime()
+	{
+		//LocalDate.of(2021, 10, 6),LocalTime.of(13,0),LocalTime.of(14,0)
+		LocalDate d1=LocalDate.of(2021, 10, 6);
+		LocalDate d2=LocalDate.of(2021, 10, 6);
+		LocalDate d3=LocalDate.of(2021, 10, 5);
+		LocalDate d4=LocalDate.of(2021, 10, 7);
+
+		int cmp;
+		cmp= d1.compareTo(d2);
+		cmp=d1.compareTo(d3);
+		cmp=d1.compareTo(d4);
+
+		int u=cmp;
 	}
 }

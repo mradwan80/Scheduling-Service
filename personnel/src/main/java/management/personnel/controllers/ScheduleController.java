@@ -83,7 +83,7 @@ public class ScheduleController {
     @RequestMapping(value = "/users/{ruid}/appointments/newappointment", headers = "AcceptVersion=v1", method = RequestMethod.POST)
     public String createAppointment_V1(@PathVariable("ruid") UUID ruid, @RequestBody Appointment apmt)
     {
-        return service.createAppointment(ruid,apmt.getDay(), apmt.getStarttime(), apmt.getEndtime());
+        return service.createAppointment(ruid, apmt.getTitle(), apmt.getDay(), apmt.getStarttime(), apmt.getEndtime());
     }
 
 
@@ -91,7 +91,7 @@ public class ScheduleController {
     @RequestMapping(value = "users/{ruid}/appointments/{appid}", headers = "AcceptVersion=v1", method = RequestMethod.PUT)
     public String updateAppointment_V1(@PathVariable("ruid") UUID ruid, @PathVariable("appid") UUID appid, @RequestBody Appointment apmt)
     {
-        return service.updateAppointment(ruid, appid, apmt.getDay(), apmt.getStarttime(), apmt.getEndtime());
+        return service.updateAppointment(ruid, appid, apmt.getTitle(), apmt.getDay(), apmt.getStarttime(), apmt.getEndtime());
     }
 
     //delete a given appointment//
