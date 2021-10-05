@@ -1,8 +1,11 @@
 package management.personnel.services;
 
+import management.personnel.DataStructures.AppointmentOutput;
 import management.personnel.models.Appointment;
+import management.personnel.models.AppointmentUser;
 import management.personnel.models.User;
 import management.personnel.repositories.AppointmentRepository;
+import management.personnel.repositories.AppointmentUserRepository;
 import management.personnel.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,10 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,12 +26,19 @@ public class ScheduleService {
     @Autowired
     private AppointmentRepository appointments;
 
-    public Long getUsersNum()
+    @Autowired
+    private AppointmentUserRepository appointmentsUsers;
+
+    /////////////////
+    //auxiliary functions
+    /////////////////
+
+    public Long getUsersCount()
     {
         return users.count();
     }
 
-    public Long getAppointmentsNum()
+    public Long getAppointmentsCount()
     {
         return appointments.count();
     }
@@ -57,6 +64,11 @@ public class ScheduleService {
             return true;
 
         return false;
+    }
+
+    private List<Appointment> getAppointmentsByUserID(UUID ruid)
+    {
+        return appointments.findAll().stream().filter( appointment -> ruid.compareTo(appointment.getUser())==0).collect(Collectors.toList());
     }
 
     /////////////////
@@ -108,9 +120,9 @@ public class ScheduleService {
             return "user does not exist";
 
         users.deleteById(id);
-        List<Appointment> apmts = getAppointmentsByUserID(id);
-        for (Appointment apmt : apmts) {
-            appointments.deleteById(apmt.getId());
+        List<Appointment> appointmentList = getAppointmentsByUserID(id);
+        for (Appointment appointment : appointmentList) {
+            appointments.deleteById(appointment.getId());
         }
         return "user deleted";
     }
@@ -119,22 +131,57 @@ public class ScheduleService {
     //Appointments functions//
     /////////////////
 
-    private List<Appointment> getAppointmentsByUserID(UUID ruid)
-    {
-        return appointments.findAll().stream().filter( apmt -> ruid.compareTo(apmt.getUser())==0).collect(Collectors.toList());
-    }
 
-    public List<Appointment> getAllAppointments()
+
+    /*public List<Appointment> getAllAppointments()
     {
         return appointments.findAll();
+    }*/
+
+    //still needs modification
+    public List<AppointmentOutput> getAllAppointments()
+    {
+        List<Appointment> appointmentList =appointments.findAll();
+        List<AppointmentOutput> outList = new ArrayList<AppointmentOutput>();
+
+        for(Appointment appointment:appointmentList)
+        {
+            AppointmentOutput ao = new AppointmentOutput();
+            ao.setAppointment(appointment);
+
+            List<AppointmentUser> appUserList = appointmentsUsers.findAll().stream().filter(appu -> appu.getAppointmentID().compareTo(appointment.getId())==0).collect(Collectors.toList());
+
+            for(AppointmentUser appUser: appUserList)
+            {
+                ao.addParticipant(appUser.getUserID().toString()); //change. need to get user name from users !
+            }
+
+            outList.add(ao);
+        }
+
+        return outList;
     }
+
+
+    /*public List<Appointment> getUserAppointments(UUID ruid)
+    {
+        return getAppointmentsByUserID(ruid);
+    }*/
 
     public List<Appointment> getUserAppointments(UUID ruid)
     {
-        return getAppointmentsByUserID(ruid);
-        //return appointments.findAll().stream().filter( apmt -> ruid.compareTo(apmt.getUser())==0).collect(Collectors.toList());
-        //return appointments.findAll(); //modify
+        List<AppointmentUser> appUserList = appointmentsUsers.findAll().stream().filter(appu -> appu.getUserID().compareTo(ruid)==0).collect(Collectors.toList());
+
+        List<Appointment> outList = new ArrayList<Appointment>();
+
+        for(AppointmentUser appUser: appUserList)
+        {
+            Optional<Appointment> optAppointment = appointments.findAll().stream().filter(apmt -> apmt.getId().compareTo(appUser.getAppointmentID())==0).collect(Collectors.toList()).stream().findFirst();
+            outList.add(optAppointment.get());
+        }
+        return outList;
     }
+
 
     public String createAppointment(UUID ruid, String title, LocalDate day, LocalTime starttime, LocalTime endtime)
     {
@@ -144,13 +191,13 @@ public class ScheduleService {
         //get appointments of ruid. check if conflicts exist with new appointment.//
         boolean conflict=false;
         String conflictMessage="";
-        List<Appointment> apmts=getAppointmentsByUserID(ruid);
-        for(Appointment apmti:apmts)
+        List<Appointment> appointmentList=getAppointmentsByUserID(ruid);
+        for(Appointment appointmenti:appointmentList)
         {
-            if(ConflictExists(day, starttime, endtime, apmti.getDay(), apmti.getStarttime(), apmti.getEndtime()))
+            if(ConflictExists(day, starttime, endtime, appointmenti.getDay(), appointmenti.getStarttime(), appointmenti.getEndtime()))
             {
                 conflict=true;
-                conflictMessage=conflictMessage+apmti.getDay().toString()+", from "+apmti.getStarttime().toString()+" to "+apmti.getEndtime().toString()+"\n";
+                conflictMessage=conflictMessage+appointmenti.getDay().toString()+", from "+appointmenti.getStarttime().toString()+" to "+appointmenti.getEndtime().toString()+"\n";
             }
         }
         if(conflict)
@@ -159,7 +206,10 @@ public class ScheduleService {
             return conflictMessage;
         }
 
-        appointments.save(new Appointment(UUID.randomUUID(), ruid, title, day, starttime, endtime));
+        UUID appid=UUID.randomUUID();
+        appointments.save(new Appointment(appid, ruid, title, day, starttime, endtime));
+
+        appointmentsUsers.save(new AppointmentUser(UUID.randomUUID(),appid, ruid));
 
         return "appointment created";
 
@@ -174,22 +224,25 @@ public class ScheduleService {
             return "appointment does not exist";
 
         //get appointment with id appid. check ruid is the responsible user//
-        Optional<Appointment> optapmt=appointments.findById(appid);
-        Appointment apmt=optapmt.get();
-        if(ruid.compareTo(apmt.getUser())!=0)
+        Optional<Appointment> optAppointment=appointments.findById(appid);
+        Appointment appointment=optAppointment.get();
+        if(ruid.compareTo(appointment.getUser())!=0)
             return "user is not authorized to update the appointment";
 
 
         //get appointments of ruid. check if conflicts exist with new appointment.//
         boolean conflict=false;
         String conflictMessage="";
-        List<Appointment> apmts=getAppointmentsByUserID(ruid);
-        for(Appointment apmti:apmts)
+        List<Appointment> appointmentList=getAppointmentsByUserID(ruid);
+        for(Appointment appointmenti:appointmentList)
         {
-            if(ConflictExists(day, starttime, endtime, apmti.getDay(), apmti.getStarttime(), apmti.getEndtime()))
+            if(appointmenti.getId().compareTo(appid)==0)    //do not compare with original appointment//
+                continue;
+
+            if(ConflictExists(day, starttime, endtime, appointmenti.getDay(), appointmenti.getStarttime(), appointmenti.getEndtime()))
             {
                 conflict=true;
-                conflictMessage=conflictMessage+apmti.getDay().toString()+", from "+apmti.getStarttime().toString()+" to "+apmti.getEndtime().toString()+"\n";
+                conflictMessage=conflictMessage+appointmenti.getDay().toString()+", from "+appointmenti.getStarttime().toString()+" to "+appointmenti.getEndtime().toString()+"\n";
             }
         }
         if(conflict)
@@ -199,13 +252,12 @@ public class ScheduleService {
         }
 
 
-
         //update//
-        apmt.setDay(day);
-        apmt.setTitle(title);
-        apmt.setStarttime(starttime);
-        apmt.setEndtime(endtime);
-        appointments.save(apmt);
+        appointment.setDay(day);
+        appointment.setTitle(title);
+        appointment.setStarttime(starttime);
+        appointment.setEndtime(endtime);
+        appointments.save(appointment);
         return "appointment updated";
 
     }
@@ -216,9 +268,9 @@ public class ScheduleService {
             return "appointment does not exist";
 
         //get appointment with id appid. check ruid is the responsible user//
-        Optional<Appointment> optapmt=appointments.findById(appid);
-        Appointment apmt=optapmt.get();
-        if(ruid.compareTo(apmt.getUser())!=0)
+        Optional<Appointment> optAppointment=appointments.findById(appid);
+        Appointment appointment=optAppointment.get();
+        if(ruid.compareTo(appointment.getUser())!=0)
             return "user is not authorized to delete the appointment";
 
         //delete//
@@ -227,6 +279,32 @@ public class ScheduleService {
         return "appointment deleted";
 
     }
+
+    public String addUserToAppointment(UUID ruid, UUID appid, UUID uid)
+    {
+        if(!appointments.existsById(appid))
+            return "appointment does not exist";
+
+        //get appointment with id appid. check ruid is the responsible user//
+        Optional<Appointment> optAppointment=appointments.findById(appid);
+        Appointment appointment=optAppointment.get();
+        if(ruid.compareTo(appointment.getUser())!=0)
+            return "user is not authorized to delete the appointment";
+
+
+
+
+
+        Optional<AppointmentUser> optAppointmentUser = appointmentsUsers.findAll().stream().filter(appu -> appu.getUserID().compareTo(uid) == 0 && appu.getAppointmentID().compareTo(appid)==0).collect(Collectors.toList()).stream().findFirst();
+        if(!optAppointmentUser.isEmpty())
+            return "user is already participating in the appointment";
+
+        appointmentsUsers.save(new AppointmentUser(UUID.randomUUID(),appid, uid));
+
+        return "user added to the appointment as a participant";
+
+    }
+
 
 
 }

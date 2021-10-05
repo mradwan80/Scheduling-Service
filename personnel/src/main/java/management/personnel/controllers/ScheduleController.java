@@ -1,5 +1,6 @@
 package management.personnel.controllers;
 
+import management.personnel.DataStructures.AppointmentOutput;
 import management.personnel.models.Appointment;
 import management.personnel.models.User;
 import management.personnel.services.ScheduleService;
@@ -66,8 +67,14 @@ public class ScheduleController {
     //Assumption: ruid is sent by the API gateway, so there is no need to check if the user exists in the users DB//
 
     //get all appointments//
-    @RequestMapping(value = "/appointments", headers = "AcceptVersion=v1", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/appointments", headers = "AcceptVersion=v1", method = RequestMethod.GET)
     public List<Appointment> getAllAppointments_V1()
+    {
+        return service.getAllAppointments();
+    }*/
+
+    @RequestMapping(value = "/appointments", headers = "AcceptVersion=v1", method = RequestMethod.GET)
+    public List<AppointmentOutput> getAllAppointments_V1()
     {
         return service.getAllAppointments();
     }

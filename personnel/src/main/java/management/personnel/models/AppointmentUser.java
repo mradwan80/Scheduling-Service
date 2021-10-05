@@ -9,32 +9,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.UUID;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Appointment {
+public class AppointmentUser {
+
     @Id
     //@GeneratedValue(strategy= GenerationType.AUTO)
     private UUID id;
 
-    //@NonNull
-    private UUID user;  //responsible user//
-
-    private String title;
+    @NonNull
+    private UUID appointmentID;
 
     @NonNull
-    private LocalDate day;
-
-    @NonNull
-    private LocalTime starttime;
-
-    @NonNull
-    private LocalTime endtime;
-
+    private UUID userID;
 
 }

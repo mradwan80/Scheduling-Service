@@ -30,7 +30,7 @@ class PersonnelApplicationTests {
 	@Test
 	void createUser_test()
 	{
-		int origSize= toIntExact(service.getUsersNum());
+		int origSize= toIntExact(service.getUsersCount());
 
 		service.createUser("Matthias","Schultz","Huetteldorfer Strasse 1, 1140 Wien");
 
@@ -51,7 +51,7 @@ class PersonnelApplicationTests {
 	@Test
 	void getAllUsers_test()
 	{
-		int origSize= toIntExact(service.getUsersNum());
+		int origSize= toIntExact(service.getUsersCount());
 
 		//creatUser is already tested//
 		service.createUser("Matthias","Schultz","Huetteldorfer Strasse 1, 1140 Wien");
@@ -97,7 +97,7 @@ class PersonnelApplicationTests {
 	@Test
 	void deleteUser_test()
 	{
-		int origSize= toIntExact(service.getUsersNum());
+		int origSize= toIntExact(service.getUsersCount());
 
 		//creatUser is already tested//
 		service.createUser("Matthias","Schultz","Huetteldorfer Strasse 1, 1140 Wien");
@@ -121,7 +121,7 @@ class PersonnelApplicationTests {
 	@Test
 	void deleteUserAndItsAppointments_test()
 	{
-		int origSize= toIntExact(service.getUsersNum());
+		int origSize= toIntExact(service.getUsersCount());
 
 		//creatUser is already tested//
 		service.createUser("Matthias","Schultz","Huetteldorfer Strasse 1, 1140 Wien");
@@ -155,7 +155,7 @@ class PersonnelApplicationTests {
 	@Test
 	void updateUser_test()
 	{
-		int origSize= toIntExact(service.getUsersNum());
+		int origSize= toIntExact(service.getUsersCount());
 
 		//creatUser is already tested//
 		service.createUser("Stefan","Fischer","Josef Baumann Gasse 1, 1220 Wien");
