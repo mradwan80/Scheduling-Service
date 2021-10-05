@@ -18,13 +18,14 @@ import java.util.UUID;
 public class AppointmentUser {
 
     @Id
-    //@GeneratedValue(strategy= GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long id;
 
     @NonNull
-    private UUID appointmentID;
+    private Long appointmentID;
 
     @NonNull
-    private UUID userID;
+    //private UUID userID;
+    private Long userID;
 
 }

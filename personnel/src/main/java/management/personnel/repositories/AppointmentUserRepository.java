@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface AppointmentUserRepository extends JpaRepository<AppointmentUser, UUID> {
+public interface AppointmentUserRepository extends JpaRepository<AppointmentUser, Long> {
 }

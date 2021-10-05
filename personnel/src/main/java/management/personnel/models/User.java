@@ -15,8 +15,8 @@ import java.util.UUID;
 public class User {
 
     @Id
-    //@GeneratedValue(strategy= GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long id;
 
     @NonNull
     private String firstname;

@@ -26,7 +26,7 @@ class PersonnelApplicationTests {
 	@Autowired
 	private ScheduleService service;
 
-
+/*
 	@Test
 	void createUser_test()
 	{
@@ -199,4 +199,6 @@ class PersonnelApplicationTests {
 
 		int u=cmp;
 	}
+
+ */
 }

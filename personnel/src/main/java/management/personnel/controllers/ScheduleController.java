@@ -32,7 +32,7 @@ public class ScheduleController {
 
     //get a given user//
     @RequestMapping(value = "/users/{id}", headers = "AcceptVersion=v1", method = RequestMethod.GET)
-    public Optional<User> getUser_V1(@PathVariable("id") UUID id)
+    public Optional<User> getUser_V1(@PathVariable("id") Long id)
     {
         return service.getUser(id); //return null if no user with this id//
     }
@@ -41,12 +41,12 @@ public class ScheduleController {
     @RequestMapping(value = "/users/newuser", headers = "AcceptVersion=v1", method = RequestMethod.POST)
     public String createUser_V1(@RequestBody User user)
     {
-        return service.createUser(user.getFirstname(),user.getLastname(), user.getAddress());
+        return service.createUser(user);
     }
 
     //update a given user//
     @RequestMapping(value = "/users/{id}", headers = "AcceptVersion=v1", method = RequestMethod.PUT)
-    public String updateUser_V1(@PathVariable("id") UUID id, @RequestBody User user)
+    public String updateUser_V1(@PathVariable("id") Long id, @RequestBody User user)
     {
         return service.updateUser(id,user.getFirstname(), user.getLastname(), user.getAddress());
     }
@@ -54,7 +54,7 @@ public class ScheduleController {
 
     //delete a given user//
     @RequestMapping(value = "/users/{id}", headers = "AcceptVersion=v1", method = RequestMethod.DELETE)
-    public String deleteUser_V1(@PathVariable("id") UUID id)
+    public String deleteUser_V1(@PathVariable("id") Long id)
     {
         return service.deleteUser(id);
     }
@@ -73,6 +73,7 @@ public class ScheduleController {
         return service.getAllAppointments();
     }*/
 
+
     @RequestMapping(value = "/appointments", headers = "AcceptVersion=v1", method = RequestMethod.GET)
     public List<AppointmentOutput> getAllAppointments_V1()
     {
@@ -81,19 +82,22 @@ public class ScheduleController {
 
     //get appointments of a given user//
     @RequestMapping(value = "/users/{ruid}/appointments", headers = "AcceptVersion=v1", method = RequestMethod.GET)
-    public List<Appointment> getUserAppointments_V1(@PathVariable("ruid") UUID ruid)
+    //public List<Appointment> getUserAppointments_V1(@PathVariable("ruid") UUID ruid)
+    public List<Appointment> getUserAppointments_V1(@PathVariable("ruid") Long ruid)
     {
         return service.getUserAppointments(ruid);
     }
 
     //create an appointment//
     @RequestMapping(value = "/users/{ruid}/appointments/newappointment", headers = "AcceptVersion=v1", method = RequestMethod.POST)
-    public String createAppointment_V1(@PathVariable("ruid") UUID ruid, @RequestBody Appointment apmt)
+    //public String createAppointment_V1(@PathVariable("ruid") UUID ruid, @RequestBody Appointment apmt)
+    public String createAppointment_V1(@PathVariable("ruid") Long ruid, @RequestBody Appointment apmt)
     {
-        return service.createAppointment(ruid, apmt.getTitle(), apmt.getDay(), apmt.getStarttime(), apmt.getEndtime());
+        //return service.createAppointment(ruid, apmt.getTitle(), apmt.getDay(), apmt.getStarttime(), apmt.getEndtime());
+        return service.createAppointment(ruid, apmt);
     }
 
-
+/*
     //update a given appointment//
     @RequestMapping(value = "users/{ruid}/appointments/{appid}", headers = "AcceptVersion=v1", method = RequestMethod.PUT)
     public String updateAppointment_V1(@PathVariable("ruid") UUID ruid, @PathVariable("appid") UUID appid, @RequestBody Appointment apmt)
@@ -107,7 +111,7 @@ public class ScheduleController {
     {
         return service.deleteAppointment(ruid, appid);
     }
-
+*/
 
     //later:
     //users/{user-ID}/appointment/{app-ID}/users/{user-ID}/newresponsible [PUT} <change the responsible user>

@@ -66,9 +66,10 @@ public class ScheduleService {
         return false;
     }
 
-    private List<Appointment> getAppointmentsByUserID(UUID ruid)
+
+    private List<Appointment> getAppointmentsByUserID(Long ruid)
     {
-        return appointments.findAll().stream().filter( appointment -> ruid.compareTo(appointment.getUser())==0).collect(Collectors.toList());
+        return appointments.findAll().stream().filter( appointment -> ruid == appointment.getUser()).collect(Collectors.toList());
     }
 
     /////////////////
@@ -86,21 +87,21 @@ public class ScheduleService {
 
     }
 
-    public Optional<User> getUser(UUID id)
+    public Optional<User> getUser(Long id)
     {
         return users.findById(id);
     }
 
-    public String createUser(String fname, String lname, String address)
+    public String createUser(User user)
     {
-        users.save(new User(UUID.randomUUID(),fname, lname, address));
+        //users.save(new User(1L,fname, lname, address));
+        users.save(user);
 
         return "user created";
     }
 
 
-
-    public String updateUser(UUID id, String fname, String lname, String address)
+    public String updateUser(Long id, String fname, String lname, String address)
     {
         if(!users.existsById(id))
            return "user does not exist";
@@ -114,7 +115,7 @@ public class ScheduleService {
         return "user updated";
     }
 
-    public String deleteUser(UUID id)
+    public String deleteUser(Long id)
     {
         if(!users.existsById(id))
             return "user does not exist";
@@ -127,16 +128,10 @@ public class ScheduleService {
         return "user deleted";
     }
 
+
     /////////////////
     //Appointments functions//
     /////////////////
-
-
-
-    /*public List<Appointment> getAllAppointments()
-    {
-        return appointments.findAll();
-    }*/
 
     //still needs modification
     public List<AppointmentOutput> getAllAppointments()
@@ -163,29 +158,25 @@ public class ScheduleService {
     }
 
 
-    /*public List<Appointment> getUserAppointments(UUID ruid)
+    //public List<Appointment> getUserAppointments(UUID ruid)
+    public List<Appointment> getUserAppointments(Long ruid)
     {
-        return getAppointmentsByUserID(ruid);
-    }*/
-
-    public List<Appointment> getUserAppointments(UUID ruid)
-    {
-        List<AppointmentUser> appUserList = appointmentsUsers.findAll().stream().filter(appu -> appu.getUserID().compareTo(ruid)==0).collect(Collectors.toList());
+        List<AppointmentUser> appUserList = appointmentsUsers.findAll().stream().filter(appu -> appu.getUserID() ==ruid).collect(Collectors.toList());
 
         List<Appointment> outList = new ArrayList<Appointment>();
 
         for(AppointmentUser appUser: appUserList)
         {
-            Optional<Appointment> optAppointment = appointments.findAll().stream().filter(apmt -> apmt.getId().compareTo(appUser.getAppointmentID())==0).collect(Collectors.toList()).stream().findFirst();
+            Optional<Appointment> optAppointment = appointments.findAll().stream().filter(apmt -> apmt.getId()==appUser.getAppointmentID()).collect(Collectors.toList()).stream().findFirst();
             outList.add(optAppointment.get());
         }
         return outList;
     }
 
 
-    public String createAppointment(UUID ruid, String title, LocalDate day, LocalTime starttime, LocalTime endtime)
+    public String createAppointment(Long ruid, Appointment inputAppointment)
     {
-        if(starttime.compareTo(endtime)>0)
+        if(inputAppointment.getStarttime().compareTo(inputAppointment.getEndtime())>0)
             return"invalid time: start time later than end time.";
 
         //get appointments of ruid. check if conflicts exist with new appointment.//
@@ -194,7 +185,7 @@ public class ScheduleService {
         List<Appointment> appointmentList=getAppointmentsByUserID(ruid);
         for(Appointment appointmenti:appointmentList)
         {
-            if(ConflictExists(day, starttime, endtime, appointmenti.getDay(), appointmenti.getStarttime(), appointmenti.getEndtime()))
+            if(ConflictExists(inputAppointment.getDay(), inputAppointment.getStarttime(), inputAppointment.getEndtime(), appointmenti.getDay(), appointmenti.getStarttime(), appointmenti.getEndtime()))
             {
                 conflict=true;
                 conflictMessage=conflictMessage+appointmenti.getDay().toString()+", from "+appointmenti.getStarttime().toString()+" to "+appointmenti.getEndtime().toString()+"\n";
@@ -206,15 +197,16 @@ public class ScheduleService {
             return conflictMessage;
         }
 
-        UUID appid=UUID.randomUUID();
-        appointments.save(new Appointment(appid, ruid, title, day, starttime, endtime));
+        Appointment newAppointment=new Appointment(null, ruid, inputAppointment.getTitle(), inputAppointment.getDay(), inputAppointment.getStarttime(),inputAppointment.getEndtime());
+        appointments.save(newAppointment);
 
-        appointmentsUsers.save(new AppointmentUser(UUID.randomUUID(),appid, ruid));
+        appointmentsUsers.save(new AppointmentUser(null,newAppointment.getId(), ruid));
 
         return "appointment created";
 
     }
 
+    /*
     public String updateAppointment(UUID ruid, UUID appid, String title, LocalDate day, LocalTime starttime, LocalTime endtime)
     {
         if(starttime.compareTo(endtime)>0)
@@ -303,7 +295,7 @@ public class ScheduleService {
 
         return "user added to the appointment as a participant";
 
-    }
+    }*/
 
 
 

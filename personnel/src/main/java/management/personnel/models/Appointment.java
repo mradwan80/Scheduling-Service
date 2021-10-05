@@ -19,11 +19,11 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Appointment {
     @Id
-    //@GeneratedValue(strategy= GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long id;
 
     //@NonNull
-    private UUID user;  //responsible user//
+    private Long user;  //responsible user//
 
     private String title;
 
