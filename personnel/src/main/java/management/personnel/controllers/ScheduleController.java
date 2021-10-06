@@ -66,13 +66,6 @@ public class ScheduleController {
     //ruid stands for responsible user ID//
     //Assumption: ruid is sent by the API gateway, so there is no need to check if the user exists in the users DB//
 
-    //get all appointments//
-    /*@RequestMapping(value = "/appointments", headers = "AcceptVersion=v1", method = RequestMethod.GET)
-    public List<Appointment> getAllAppointments_V1()
-    {
-        return service.getAllAppointments();
-    }*/
-
 
     @RequestMapping(value = "/appointments", headers = "AcceptVersion=v1", method = RequestMethod.GET)
     public List<AppointmentOutput> getAllAppointments_V1()
@@ -82,41 +75,51 @@ public class ScheduleController {
 
     //get appointments of a given user//
     @RequestMapping(value = "/users/{ruid}/appointments", headers = "AcceptVersion=v1", method = RequestMethod.GET)
-    //public List<Appointment> getUserAppointments_V1(@PathVariable("ruid") UUID ruid)
-    public List<Appointment> getUserAppointments_V1(@PathVariable("ruid") Long ruid)
+    public List<AppointmentOutput> getUserAppointments_V1(@PathVariable("ruid") Long ruid)
     {
         return service.getUserAppointments(ruid);
     }
 
     //create an appointment//
     @RequestMapping(value = "/users/{ruid}/appointments/newappointment", headers = "AcceptVersion=v1", method = RequestMethod.POST)
-    //public String createAppointment_V1(@PathVariable("ruid") UUID ruid, @RequestBody Appointment apmt)
     public String createAppointment_V1(@PathVariable("ruid") Long ruid, @RequestBody Appointment apmt)
     {
         //return service.createAppointment(ruid, apmt.getTitle(), apmt.getDay(), apmt.getStarttime(), apmt.getEndtime());
         return service.createAppointment(ruid, apmt);
     }
 
-/*
+
     //update a given appointment//
     @RequestMapping(value = "users/{ruid}/appointments/{appid}", headers = "AcceptVersion=v1", method = RequestMethod.PUT)
-    public String updateAppointment_V1(@PathVariable("ruid") UUID ruid, @PathVariable("appid") UUID appid, @RequestBody Appointment apmt)
+    public String updateAppointment_V1(@PathVariable("ruid") Long ruid, @PathVariable("appid") Long appid, @RequestBody Appointment apmt)
     {
-        return service.updateAppointment(ruid, appid, apmt.getTitle(), apmt.getDay(), apmt.getStarttime(), apmt.getEndtime());
+        return service.updateAppointment(ruid, appid, apmt);
+        //return service.updateAppointment(ruid, appid, apmt.getTitle(), apmt.getDay(), apmt.getStarttime(), apmt.getEndtime());
     }
+
 
     //delete a given appointment//
     @RequestMapping(value = "users/{ruid}/appointments/{appid}", headers = "AcceptVersion=v1", method = RequestMethod.DELETE)
-    public String deleteAppointment_V1(@PathVariable("ruid") UUID ruid, @PathVariable("appid") UUID appid)
+    public String deleteAppointment_V1(@PathVariable("ruid") Long ruid, @PathVariable("appid") Long appid)
     {
         return service.deleteAppointment(ruid, appid);
     }
-*/
+
+
+    @RequestMapping(value = "users/{ruid}/appointments/{appid}/users/{uid}", headers = "AcceptVersion=v1", method = RequestMethod.PUT)
+    public String AddUserToAppointment_V1(@PathVariable("ruid") Long ruid, @PathVariable("appid") Long appid, @PathVariable("uid") Long uid)
+    {
+        return service.AddUserToAppointment(ruid, appid, uid);
+    }
+
+    @RequestMapping(value = "users/{ruid}/appointments/{appid}/users/{uid}", headers = "AcceptVersion=v1", method = RequestMethod.DELETE)
+    public String DeleteUserFromAppointment_V1(@PathVariable("ruid") Long ruid, @PathVariable("appid") Long appid, @PathVariable("uid") Long uid)
+    {
+        return service.DeleteUserFromAppointment(ruid, appid, uid);
+    }
 
     //later:
     //users/{user-ID}/appointment/{app-ID}/users/{user-ID}/newresponsible [PUT} <change the responsible user>
-    //users/{user-ID}/appointment/{app-ID}/users/{user-ID}/ [PUT] <add a new user to appointment>
-    //users/{user-ID}/appointment/{app-ID}/users/{user-ID}/ [DELETE] <delete a user from appointment>
 
 
 

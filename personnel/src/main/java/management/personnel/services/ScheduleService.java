@@ -66,11 +66,75 @@ public class ScheduleService {
         return false;
     }
 
-
-    private List<Appointment> getAppointmentsByUserID(Long ruid)
+    private List<AppointmentUser> getAppointmentUserPairsOfUser(Long uid)
     {
-        return appointments.findAll().stream().filter( appointment -> ruid == appointment.getUser()).collect(Collectors.toList());
+        return appointmentsUsers.findAll().stream().filter(appu -> appu.getUserID() ==uid).collect(Collectors.toList());
     }
+
+    private List<AppointmentUser> getAppointmentUserPairsOfAppointment(Long appid)
+    {
+        return appointmentsUsers.findAll().stream().filter(appu -> appu.getAppointmentID() ==appid).collect(Collectors.toList());
+    }
+
+
+    private List<Appointment> getAppointmentsOfResponsibleUser(Long uid)
+    {
+        return appointments.findAll().stream().filter( appointment -> uid == appointment.getUser()).collect(Collectors.toList());
+    }
+
+    private List<Appointment> getAppointmentsOfParticipatingUser(Long uid)
+    {
+        List<Appointment> outL=new ArrayList<>();
+
+        List<AppointmentUser> appointmenUserList = getAppointmentUserPairsOfUser(uid);
+
+        for(AppointmentUser appointmentUser: appointmenUserList)
+        {
+            Appointment appointment = appointments.findById(appointmentUser.getAppointmentID()).get();
+            outL.add(appointment);
+        }
+
+        return outL;
+    }
+
+    private void deleteAppointmentUserPairsOfAppointment(Long appid)
+    {
+        List<AppointmentUser> appointmenUserList = getAppointmentUserPairsOfAppointment(appid);
+
+        for(AppointmentUser appointmentUser: appointmenUserList)
+        {
+            appointmentsUsers.deleteById(appointmentUser.getId());
+        }
+
+    }
+
+    private String ConflictAppointmentVsParticipatingUserAppointments(Long uid, Appointment appointment, Long exceptionAppointmentID)
+    {
+        boolean conflict=false;
+        String conflictMessage="";
+        List<Appointment> appointmentList=getAppointmentsOfParticipatingUser(uid);
+        for(Appointment appointmenti:appointmentList)
+        {
+            if(appointmenti.getId()==exceptionAppointmentID)
+                continue;
+
+            if(ConflictExists(appointment.getDay(), appointment.getStarttime(), appointment.getEndtime(), appointmenti.getDay(), appointmenti.getStarttime(), appointmenti.getEndtime()))
+            {
+                conflict=true;
+                conflictMessage=conflictMessage+appointmenti.getDay().toString()+", from "+appointmenti.getStarttime().toString()+" to "+appointmenti.getEndtime().toString()+"\n";
+            }
+        }
+        if(conflict)
+        {
+            //conflictMessage="Can not update the appointment with these data and time values. They conflict with the following appointment(s):\n"+conflictMessage;
+            return conflictMessage;
+        }
+        else
+            return "";
+    }
+
+
+
 
     /////////////////
     //Users functions//
@@ -87,14 +151,13 @@ public class ScheduleService {
 
     }
 
-    public Optional<User> getUser(Long id)
+    public Optional<User> getUser(Long id)  //returns null if user does not exist//
     {
         return users.findById(id);
     }
 
     public String createUser(User user)
     {
-        //users.save(new User(1L,fname, lname, address));
         users.save(user);
 
         return "user created";
@@ -120,10 +183,22 @@ public class ScheduleService {
         if(!users.existsById(id))
             return "user does not exist";
 
+        //delete user//
         users.deleteById(id);
-        List<Appointment> appointmentList = getAppointmentsByUserID(id);
+
+        //delete appointments that the user is responsible for//
+        List<Appointment> appointmentList = getAppointmentsOfResponsibleUser(id);
         for (Appointment appointment : appointmentList) {
             appointments.deleteById(appointment.getId());
+            deleteAppointmentUserPairsOfAppointment(appointment.getId());
+        }
+
+        //delete user from all appointments he is participating//
+        List<AppointmentUser> appointmentUserList = appointmentsUsers.findAll().stream().filter(appu -> appu.getUserID()==id).collect(Collectors.toList());
+
+        for(AppointmentUser appointmentUser: appointmentUserList)
+        {
+            appointmentsUsers.deleteById(appointmentUser.getId());
         }
         return "user deleted";
     }
@@ -133,22 +208,22 @@ public class ScheduleService {
     //Appointments functions//
     /////////////////
 
-    //still needs modification
     public List<AppointmentOutput> getAllAppointments()
     {
-        List<Appointment> appointmentList =appointments.findAll();
         List<AppointmentOutput> outList = new ArrayList<AppointmentOutput>();
+
+        List<Appointment> appointmentList =appointments.findAll();
 
         for(Appointment appointment:appointmentList)
         {
             AppointmentOutput ao = new AppointmentOutput();
+
             ao.setAppointment(appointment);
 
-            List<AppointmentUser> appUserList = appointmentsUsers.findAll().stream().filter(appu -> appu.getAppointmentID().compareTo(appointment.getId())==0).collect(Collectors.toList());
-
+            List<AppointmentUser> appUserList =getAppointmentUserPairsOfAppointment(appointment.getId());
             for(AppointmentUser appUser: appUserList)
             {
-                ao.addParticipant(appUser.getUserID().toString()); //change. need to get user name from users !
+                ao.addParticipant(appUser.getUserID().toString()); //later: search for name and add it//
             }
 
             outList.add(ao);
@@ -158,17 +233,28 @@ public class ScheduleService {
     }
 
 
-    //public List<Appointment> getUserAppointments(UUID ruid)
-    public List<Appointment> getUserAppointments(Long ruid)
+    public List<AppointmentOutput> getUserAppointments(Long ruid)
     {
-        List<AppointmentUser> appUserList = appointmentsUsers.findAll().stream().filter(appu -> appu.getUserID() ==ruid).collect(Collectors.toList());
+        List<AppointmentOutput> outList = new ArrayList<AppointmentOutput>();
 
-        List<Appointment> outList = new ArrayList<Appointment>();
+        //get all appointments of the user//
+        List<Appointment> appointmentsList = getAppointmentsOfParticipatingUser(ruid);
 
-        for(AppointmentUser appUser: appUserList)
+
+        //for each appointment//
+        for(Appointment appointment: appointmentsList)
         {
-            Optional<Appointment> optAppointment = appointments.findAll().stream().filter(apmt -> apmt.getId()==appUser.getAppointmentID()).collect(Collectors.toList()).stream().findFirst();
-            outList.add(optAppointment.get());
+            AppointmentOutput ao = new AppointmentOutput();
+
+            ao.setAppointment(appointment);
+
+            List<AppointmentUser> appUserList =getAppointmentUserPairsOfAppointment(appointment.getId());
+            for(AppointmentUser appUser: appUserList)
+            {
+                ao.addParticipant(appUser.getUserID().toString()); //later: search for name and add it//
+            }
+
+            outList.add(ao);
         }
         return outList;
     }
@@ -179,10 +265,16 @@ public class ScheduleService {
         if(inputAppointment.getStarttime().compareTo(inputAppointment.getEndtime())>0)
             return"invalid time: start time later than end time.";
 
+        Appointment newAppointment=new Appointment(null, ruid, inputAppointment.getTitle(), inputAppointment.getDay(), inputAppointment.getStarttime(),inputAppointment.getEndtime());
+
+        String conflictMessage = ConflictAppointmentVsParticipatingUserAppointments(ruid,newAppointment,null);
+        if(conflictMessage!="")
+            return "Can not update the appointment with these data and time values. They conflict with the following appointment(s):\n"+conflictMessage;
+
         //get appointments of ruid. check if conflicts exist with new appointment.//
-        boolean conflict=false;
+        /*boolean conflict=false;
         String conflictMessage="";
-        List<Appointment> appointmentList=getAppointmentsByUserID(ruid);
+        List<Appointment> appointmentList=getAppointmentsOfParticipatingUser(ruid);
         for(Appointment appointmenti:appointmentList)
         {
             if(ConflictExists(inputAppointment.getDay(), inputAppointment.getStarttime(), inputAppointment.getEndtime(), appointmenti.getDay(), appointmenti.getStarttime(), appointmenti.getEndtime()))
@@ -195,9 +287,9 @@ public class ScheduleService {
         {
             conflictMessage="Can not update the appointment with these data and time values. They conflict with the following appointment(s):\n"+conflictMessage;
             return conflictMessage;
-        }
+        }*/
 
-        Appointment newAppointment=new Appointment(null, ruid, inputAppointment.getTitle(), inputAppointment.getDay(), inputAppointment.getStarttime(),inputAppointment.getEndtime());
+
         appointments.save(newAppointment);
 
         appointmentsUsers.save(new AppointmentUser(null,newAppointment.getId(), ruid));
@@ -206,29 +298,31 @@ public class ScheduleService {
 
     }
 
-    /*
-    public String updateAppointment(UUID ruid, UUID appid, String title, LocalDate day, LocalTime starttime, LocalTime endtime)
+
+    public String updateAppointment(Long ruid, Long appid, Appointment updatedAppointment)
     {
-        if(starttime.compareTo(endtime)>0)
+        if(updatedAppointment.getStarttime().compareTo(updatedAppointment.getEndtime())>0)
             return"invalid time: start time later than end time.";
 
         if(!appointments.existsById(appid))
             return "appointment does not exist";
 
         //get appointment with id appid. check ruid is the responsible user//
-        Optional<Appointment> optAppointment=appointments.findById(appid);
-        Appointment appointment=optAppointment.get();
-        if(ruid.compareTo(appointment.getUser())!=0)
+        /*Optional<Appointment> optAppointment=appointments.findById(appid);
+        Appointment appointment=optAppointment.get();*/
+        Appointment appointment=appointments.findById(appid).get();
+        if(ruid!=appointment.getUser())
             return "user is not authorized to update the appointment";
 
 
         //get appointments of ruid. check if conflicts exist with new appointment.//
-        boolean conflict=false;
+        /*boolean conflict=false;
         String conflictMessage="";
+
         List<Appointment> appointmentList=getAppointmentsByUserID(ruid);
         for(Appointment appointmenti:appointmentList)
         {
-            if(appointmenti.getId().compareTo(appid)==0)    //do not compare with original appointment//
+            if(appointmenti.getId()==appid)    //do not compare with original appointment//
                 continue;
 
             if(ConflictExists(day, starttime, endtime, appointmenti.getDay(), appointmenti.getStarttime(), appointmenti.getEndtime()))
@@ -241,20 +335,31 @@ public class ScheduleService {
         {
             conflictMessage="Can not update the appointment with these data and time values. They conflict with the following appointment(s):\n"+conflictMessage;
             return conflictMessage;
+        }*/
+
+        String conflictMessage="";
+        List<AppointmentUser> appointmentUserList = getAppointmentUserPairsOfAppointment(appid);
+        for(AppointmentUser appointmentUser:appointmentUserList) {
+            String Msg = ConflictAppointmentVsParticipatingUserAppointments(appointmentUser.getUserID(), updatedAppointment, appointment.getId());
+            conflictMessage = conflictMessage+Msg;
         }
+        if(conflictMessage.length()!=0)
+            return "Can not update the appointment with these data and time values. They conflict with the following appointment(s):\n"+conflictMessage;
+
 
 
         //update//
-        appointment.setDay(day);
-        appointment.setTitle(title);
-        appointment.setStarttime(starttime);
-        appointment.setEndtime(endtime);
+        appointment.setDay(updatedAppointment.getDay());
+        appointment.setTitle(updatedAppointment.getTitle());
+        appointment.setStarttime(updatedAppointment.getStarttime());
+        appointment.setEndtime(updatedAppointment.getEndtime());
         appointments.save(appointment);
         return "appointment updated";
 
     }
 
-    public String deleteAppointment(UUID ruid, UUID appid)
+
+    public String deleteAppointment(Long ruid, Long appid)
     {
         if(!appointments.existsById(appid))
             return "appointment does not exist";
@@ -262,40 +367,99 @@ public class ScheduleService {
         //get appointment with id appid. check ruid is the responsible user//
         Optional<Appointment> optAppointment=appointments.findById(appid);
         Appointment appointment=optAppointment.get();
-        if(ruid.compareTo(appointment.getUser())!=0)
+        if(ruid != appointment.getUser())
             return "user is not authorized to delete the appointment";
 
         //delete//
         appointments.deleteById(appid);
 
+        deleteAppointmentUserPairsOfAppointment(appid);
+
         return "appointment deleted";
 
     }
 
-    public String addUserToAppointment(UUID ruid, UUID appid, UUID uid)
+
+    public String AddUserToAppointment(Long ruid, Long appid, Long uid)
     {
+        //make sure appointment exists//
         if(!appointments.existsById(appid))
             return "appointment does not exist";
+
+        //make sure user exists//
+        if(!users.existsById(uid))
+            return "user does not exist";
 
         //get appointment with id appid. check ruid is the responsible user//
         Optional<Appointment> optAppointment=appointments.findById(appid);
         Appointment appointment=optAppointment.get();
-        if(ruid.compareTo(appointment.getUser())!=0)
-            return "user is not authorized to delete the appointment";
+        if(ruid != appointment.getUser())
+            return "user is not authorized to add another user to  the appointment";
 
-
-
-
-
-        Optional<AppointmentUser> optAppointmentUser = appointmentsUsers.findAll().stream().filter(appu -> appu.getUserID().compareTo(uid) == 0 && appu.getAppointmentID().compareTo(appid)==0).collect(Collectors.toList()).stream().findFirst();
-        if(!optAppointmentUser.isEmpty())
+        //make sure user is not already participating//
+        List<AppointmentUser> appointmentUserList = appointmentsUsers.findAll().stream().filter(appu -> appu.getAppointmentID()==appid && appu.getUserID()==uid).collect(Collectors.toList());
+        if(appointmentUserList.size()>0)
             return "user is already participating in the appointment";
 
-        appointmentsUsers.save(new AppointmentUser(UUID.randomUUID(),appid, uid));
+        String conflictMessage = ConflictAppointmentVsParticipatingUserAppointments(uid,appointment,null);
+        if(conflictMessage!="")
+            return "Can not update the appointment with these data and time values. They conflict with the following appointment(s):\n"+conflictMessage;
 
-        return "user added to the appointment as a participant";
+        //get appointments of uid. check if conflicts exist with new appointment.//
+        /*boolean conflict=false;
+        String conflictMessage="";
+        List<Appointment> appointmentList=getAppointmentsOfParticipatingUser(uid);
+        for(Appointment appointmenti:appointmentList)
+        {
 
-    }*/
+            if(ConflictExists(appointment.getDay(), appointment.getStarttime(), appointment.getEndtime(), appointmenti.getDay(), appointmenti.getStarttime(), appointmenti.getEndtime()))
+            {
+                conflict=true;
+                conflictMessage=conflictMessage+appointmenti.getDay().toString()+", from "+appointmenti.getStarttime().toString()+" to "+appointmenti.getEndtime().toString()+"\n";
+            }
+        }
+        if(conflict)
+        {
+            conflictMessage="Can not update the appointment with these data and time values. They conflict with the following appointment(s):\n"+conflictMessage;
+            return conflictMessage;
+        }*/
+
+
+        appointmentsUsers.save(new AppointmentUser(null,appid,uid));
+        return "user added as a participant to the appointment";
+    }
+
+    //The user responsible fro an appointment can not delete himself from it. later, will provide a function to allow the responsible user to assign another one, and can then delete himself//
+    public String DeleteUserFromAppointment(Long ruid, Long appid, Long uid)
+    {
+        //make sure appointment exists//
+        if(!appointments.existsById(appid))
+            return "appointment does not exist";
+
+        //make sure user exists//
+        if(ruid==uid)
+            return "can not delete the responsible user from the appointment";
+
+        //make sure user exists//
+        if(!users.existsById(uid))
+            return "user does not exist";
+
+        //get appointment with id appid. check ruid is the responsible user//
+        Optional<Appointment> optAppointment=appointments.findById(appid);
+        Appointment appointment=optAppointment.get();
+        if(ruid != appointment.getUser())
+            return "user is not authorized to remove another user from  the appointment";
+
+        //make sure user is participating already//
+        List<AppointmentUser> appointmentUserList = appointmentsUsers.findAll().stream().filter(appu -> appu.getAppointmentID()==appid && appu.getUserID()==uid).collect(Collectors.toList());
+        if(appointmentUserList.size()==0)
+            return "user is already not participating in the appointment";
+
+
+        Optional<AppointmentUser> appointmentUser= appointmentUserList.stream().findFirst();
+        appointmentsUsers.deleteById(appointmentUser.get().getId());
+        return "user deleted as a participant from the appointment";
+    }
 
 
 

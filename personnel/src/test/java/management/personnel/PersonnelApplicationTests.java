@@ -26,13 +26,13 @@ class PersonnelApplicationTests {
 	@Autowired
 	private ScheduleService service;
 
-/*
+
 	@Test
 	void createUser_test()
 	{
 		int origSize= toIntExact(service.getUsersCount());
 
-		service.createUser("Matthias","Schultz","Huetteldorfer Strasse 1, 1140 Wien");
+		service.createUser(new User(null, "Matthias","Schultz","Huetteldorfer Strasse 1, 1140 Wien"));
 
 		List<User> L= service.getAllUsers(); //not tested yet//
 
@@ -54,13 +54,13 @@ class PersonnelApplicationTests {
 		int origSize= toIntExact(service.getUsersCount());
 
 		//creatUser is already tested//
-		service.createUser("Matthias","Schultz","Huetteldorfer Strasse 1, 1140 Wien");
-		service.createUser("Adam","Kruger","Huetteldorfer Strasse 2, 1140 Wien");
-		service.createUser("Kati","Mayerhofer","Huetteldorfer Strasse 3, 1140 Wien");
-		service.createUser("Stefan","Fischer","Josef Baumann Gasse 1, 1220 Wien");
-		service.createUser("Anita","Weber","Josef Baumann Gasse 2, 1220 Wien");
-		service.createUser("Peter","Schmidt","Josef Baumann Gasse 3, 1220 Wien");
-		service.createUser("Markus","Wagner","Josef Baumann Gasse 4, 1220 Wien");
+		service.createUser(new User(null, "Matthias","Schultz","Huetteldorfer Strasse 1, 1140 Wien"));
+		service.createUser(new User(null, "Adam","Kruger","Huetteldorfer Strasse 2, 1140 Wien"));
+		service.createUser(new User(null, "Kati","Mayerhofer","Huetteldorfer Strasse 3, 1140 Wien"));
+		service.createUser(new User(null, "Stefan","Fischer","Josef Baumann Gasse 1, 1220 Wien"));
+		service.createUser(new User(null, "Anita","Weber","Josef Baumann Gasse 2, 1220 Wien"));
+		service.createUser(new User(null, "Peter","Schmidt","Josef Baumann Gasse 3, 1220 Wien"));
+		service.createUser(new User(null, "Markus","Wagner","Josef Baumann Gasse 4, 1220 Wien"));
 
 		List<User> L = service.getAllUsers();
 
@@ -73,15 +73,15 @@ class PersonnelApplicationTests {
 	void getUser_test()
 	{
 		//creatUser is already tested//
-		service.createUser("Matthias","Schultz","Huetteldorfer Strasse 1, 1140 Wien");
-		service.createUser("Adam","Kruger","Huetteldorfer Strasse 2, 1140 Wien");
-		service.createUser("Kati","Mayerhofer","Huetteldorfer Strasse 3, 1140 Wien");
+		service.createUser(new User(null, "Matthias","Schultz","Huetteldorfer Strasse 1, 1140 Wien"));
+		service.createUser(new User(null, "Adam","Kruger","Huetteldorfer Strasse 2, 1140 Wien"));
+		service.createUser(new User(null, "Kati","Mayerhofer","Huetteldorfer Strasse 3, 1140 Wien"));
 
 		List<User> L= service.getAllUsers(); //already tested//
 
 		Optional<User> user1 = L.stream().findFirst();
 		User gotuser1=user1.get();
-		UUID id1 = gotuser1.getId();
+		Long id1 = gotuser1.getId();
 
 
 		Optional<User> user2 = service.getUser(id1);
@@ -100,9 +100,9 @@ class PersonnelApplicationTests {
 		int origSize= toIntExact(service.getUsersCount());
 
 		//creatUser is already tested//
-		service.createUser("Matthias","Schultz","Huetteldorfer Strasse 1, 1140 Wien");
-		service.createUser("Adam","Kruger","Huetteldorfer Strasse 2, 1140 Wien");
-		service.createUser("Kati","Mayerhofer","Huetteldorfer Strasse 3, 1140 Wien");
+		service.createUser(new User(null, "Matthias","Schultz","Huetteldorfer Strasse 1, 1140 Wien"));
+		service.createUser(new User(null, "Adam","Kruger","Huetteldorfer Strasse 2, 1140 Wien"));
+		service.createUser(new User(null, "Kati","Mayerhofer","Huetteldorfer Strasse 3, 1140 Wien"));
 
 		List<User> L= service.getAllUsers(); //already tested//
 
@@ -124,31 +124,30 @@ class PersonnelApplicationTests {
 		int origSize= toIntExact(service.getUsersCount());
 
 		//creatUser is already tested//
-		service.createUser("Matthias","Schultz","Huetteldorfer Strasse 1, 1140 Wien");
-		service.createUser("Adam","Kruger","Huetteldorfer Strasse 2, 1140 Wien");
+		service.createUser(new User(null, "Matthias","Schultz","Huetteldorfer Strasse 1, 1140 Wien"));
+		service.createUser(new User(null, "Adam","Kruger","Huetteldorfer Strasse 2, 1140 Wien"));
 
 		List<User> L= service.getAllUsers(); //already tested//
 
 		int index=0;
-		User user0 = L.get(index+ origSize); //Matthias Schultz//
+		User user1 = L.get(index+ origSize); //Matthias Schultz//
 
 		index=1;
-		User user1 = L.get(index+ origSize); //Adam Kruger//
+		User user2 = L.get(index+ origSize); //Adam Kruger//
 
 
-		service.createAppointment(user0.getId(), "title", LocalDate.of(2021, 10, 6),LocalTime.of(13,0),LocalTime.of(14,0));
-		service.createAppointment(user1.getId(),"title",LocalDate.of(2021, 10, 7),LocalTime.of(13,0),LocalTime.of(14,0));
-		service.createAppointment(user0.getId(),"title",LocalDate.of(2021, 10, 8),LocalTime.of(13,0),LocalTime.of(14,0));
+		service.createAppointment(user1.getId(), new Appointment(null, null, "title", LocalDate.of(2021, 10, 6),LocalTime.of(13,0),LocalTime.of(14,0)));
+		service.createAppointment(user2.getId(), new Appointment(null, null,"title",LocalDate.of(2021, 10, 7),LocalTime.of(13,0),LocalTime.of(14,0)));
+		service.createAppointment(user1.getId(), new Appointment(null, null,"title",LocalDate.of(2021, 10, 8),LocalTime.of(13,0),LocalTime.of(14,0)));
 
-		List<Appointment> Lbefore=service.getUserAppointments(user0.getId());
+		/*List<Appointment> Lbefore=service.getUserAppointments(user1.getId());
 
 
-		service.deleteUser(user0.getId());
+		service.deleteUser(user1.getId());
 
-		List<Appointment> Lafter=service.getUserAppointments(user0.getId());
+		List<Appointment> Lafter=service.getUserAppointments(user1.getId());
 
-		assertEquals(2, Lbefore.size()-Lafter.size());
-
+		assertEquals(2, Lbefore.size()-Lafter.size());*/
 
 	}
 
@@ -158,10 +157,10 @@ class PersonnelApplicationTests {
 		int origSize= toIntExact(service.getUsersCount());
 
 		//creatUser is already tested//
-		service.createUser("Stefan","Fischer","Josef Baumann Gasse 1, 1220 Wien");
-		service.createUser("Anita","Weber","Josef Baumann Gasse 2, 1220 Wien");
-		service.createUser("Peter","Schmidt","Josef Baumann Gasse 3, 1220 Wien");
-		service.createUser("Markus","Wagner","Josef Baumann Gasse 4, 1220 Wien");
+		service.createUser(new User(null,"Stefan","Fischer","Josef Baumann Gasse 1, 1220 Wien"));
+		service.createUser(new User(null,"Anita","Weber","Josef Baumann Gasse 2, 1220 Wien"));
+		service.createUser(new User(null,"Peter","Schmidt","Josef Baumann Gasse 3, 1220 Wien"));
+		service.createUser(new User(null,"Markus","Wagner","Josef Baumann Gasse 4, 1220 Wien"));
 
 		List<User> L= service.getAllUsers(); //already tested//
 
@@ -200,5 +199,5 @@ class PersonnelApplicationTests {
 		int u=cmp;
 	}
 
- */
+
 }
