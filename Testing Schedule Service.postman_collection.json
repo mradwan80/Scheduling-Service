@@ -1,0 +1,2559 @@
+{
+	"info": {
+		"_postman_id": "68ffb776-a3bc-46d9-9ca2-937945d4bc5b",
+		"name": "Testing Schedule Service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "create user 1",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "AcceptVersion",
+								"value": "v1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\":\"Matthias\",\r\n    \"lastname\":\"Schultz\",\r\n    \"address\":\"Huetteldorfer Strasse 1, 1140 Wien\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/users/newuser",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"newuser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create user 2",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "AcceptVersion",
+								"value": "v1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\":\"Adam\",\r\n    \"lastname\":\"Kruger\",\r\n    \"address\":\"Huetteldorfer Strasse 3, 1140 Wien\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/users/newuser",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"newuser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create user 3",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "AcceptVersion",
+								"value": "v1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\":\"Kati\",\r\n    \"lastname\":\"Mayerhofer\",\r\n    \"address\":\"Huetteldorfer Strasse 3, 1140 Wien\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/users/newuser",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"newuser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create user 4",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "AcceptVersion",
+								"value": "v1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\":\"Stefan\",\r\n    \"lastname\":\"Fischer\",\r\n    \"address\":\"Josef Baumann Gasse 1, 1220 Wien\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/users/newuser",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"newuser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create user 5",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "AcceptVersion",
+								"value": "v1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\":\"Anita\",\r\n    \"lastname\":\"Weber\",\r\n    \"address\":\"Josef Baumann Gasse 2, 1220 Wien\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/users/newuser",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"newuser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create user 6",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "AcceptVersion",
+								"value": "v1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\":\"Peter\",\r\n    \"lastname\":\"Schmidt\",\r\n    \"address\":\"Josef Baumann Gasse 3, 1220 Wien\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/users/newuser",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"newuser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create user 7",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "AcceptVersion",
+								"value": "v1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\":\"Markus\",\r\n    \"lastname\":\"Wagner\",\r\n    \"address\":\"Josef Baumann Gasse 4, 1220 Wien\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/users/newuser",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"newuser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "AcceptVersion",
+								"value": "v1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8080/users/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								""
+							]
+						},
+						"description": "desc"
+					},
+					"response": []
+				},
+				{
+					"name": "get user 4",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "AcceptVersion",
+								"value": "v1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8080/users/4",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "AcceptVersion",
+								"value": "v1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8080/users/6",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete (non existing) user",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "AcceptVersion",
+								"value": "v1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8080/users/11",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete (already deleted) user",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "AcceptVersion",
+								"value": "v1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8080/users/6",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user 1",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "AcceptVersion",
+								"value": "v1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\":\"Michael\",\r\n    \"lastname\":\"Mueller\",\r\n    \"address\":\"Berlin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/users/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update (non existing) user",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "AcceptVersion",
+								"value": "v1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\":\"Michael\",\r\n    \"lastname\":\"Mueller\",\r\n    \"address\":\"Berlin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/users/11",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"11"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Appointments",
+			"item": [
+				{
+					"name": "test add/deleter users to/from appointments",
+					"item": [
+						{
+							"name": "create appointment 1 (user 1)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",\r\n    \"day\":\"2021-10-06\",\r\n    \"starttime\":\"13:00:00\",\r\n    \"endtime\":\"14:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/1/appointments/newappointment",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"1",
+										"appointments",
+										"newappointment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create appointment 2  (user 1)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",    \r\n    \"day\":\"2021-10-06\",\r\n    \"starttime\":\"16:00:00\",\r\n    \"endtime\":\"17:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/1/appointments/newappointment",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"1",
+										"appointments",
+										"newappointment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create appointment 3  (user 1)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",    \r\n    \"day\":\"2021-10-08\",\r\n    \"starttime\":\"13:00:00\",\r\n    \"endtime\":\"14:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/1/appointments/newappointment",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"1",
+										"appointments",
+										"newappointment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create appointment 4  (user 2)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",    \r\n    \"day\":\"2021-10-09\",\r\n    \"starttime\":\"13:00:00\",\r\n    \"endtime\":\"14:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/2/appointments/newappointment",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"2",
+										"appointments",
+										"newappointment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create appointment 5  (user 2)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",    \r\n    \"day\":\"2021-10-09\",\r\n    \"starttime\":\"13:00:00\",\r\n    \"endtime\":\"14:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/2/appointments/newappointment",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"2",
+										"appointments",
+										"newappointment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create appointment 6  (user 3)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",    \r\n    \"day\":\"2021-10-09\",\r\n    \"starttime\":\"13:00:00\",\r\n    \"endtime\":\"14:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/2/appointments/newappointment",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"2",
+										"appointments",
+										"newappointment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add user 2 to apmt 1",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",    \r\n    \"day\":\"2021-10-09\",\r\n    \"starttime\":\"13:00:00\",\r\n    \"endtime\":\"14:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/1/appointments/3",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"1",
+										"appointments",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add user 4 to apmt 1",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",    \r\n    \"day\":\"2021-10-09\",\r\n    \"starttime\":\"13:00:00\",\r\n    \"endtime\":\"14:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/1/appointments/8/users/4",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"1",
+										"appointments",
+										"8",
+										"users",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add user 1 to apmt 4",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",    \r\n    \"day\":\"2021-10-09\",\r\n    \"starttime\":\"13:00:00\",\r\n    \"endtime\":\"14:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/2/appointments/14/users/1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"2",
+										"appointments",
+										"14",
+										"users",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add user 5 to apmt 4",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",    \r\n    \"day\":\"2021-10-09\",\r\n    \"starttime\":\"13:00:00\",\r\n    \"endtime\":\"14:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/2/appointments/14/users/5",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"2",
+										"appointments",
+										"14",
+										"users",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add user 5 to apmt1 (unauthorized)",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",    \r\n    \"day\":\"2021-10-09\",\r\n    \"starttime\":\"13:00:00\",\r\n    \"endtime\":\"14:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/2/appointments/8/users/5",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"2",
+										"appointments",
+										"8",
+										"users",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add user 20 to apmt1 (non existnig user)",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",    \r\n    \"day\":\"2021-10-09\",\r\n    \"starttime\":\"13:00:00\",\r\n    \"endtime\":\"14:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/1/appointments/8/users/20",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"1",
+										"appointments",
+										"8",
+										"users",
+										"20"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete user 5 from apmt 2 (unauthorized))",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",    \r\n    \"day\":\"2021-10-09\",\r\n    \"starttime\":\"13:00:00\",\r\n    \"endtime\":\"14:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/3/appointments/14/users/5",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"3",
+										"appointments",
+										"14",
+										"users",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete user 5 from apmt 2",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",    \r\n    \"day\":\"2021-10-09\",\r\n    \"starttime\":\"13:00:00\",\r\n    \"endtime\":\"14:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/3/appointments/14/users/5",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"3",
+										"appointments",
+										"14",
+										"users",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete user 7 from apmt 2 (not participating))",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",    \r\n    \"day\":\"2021-10-09\",\r\n    \"starttime\":\"13:00:00\",\r\n    \"endtime\":\"14:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/2/appointments/14/users/7",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"2",
+										"appointments",
+										"14",
+										"users",
+										"7"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "gets",
+					"item": [
+						{
+							"name": "get all apmts",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8080/appointments",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"appointments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get apmts of user 1",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/1/appointments/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"1",
+										"appointments",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get apmts of user 2",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/2/appointments/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"2",
+										"appointments",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get apmts of user 3",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/3/appointments/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"3",
+										"appointments",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get apmts of user 4",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/3/appointments/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"3",
+										"appointments",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get apmts of user 30",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/3/appointments/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"3",
+										"appointments",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "test deleting user",
+					"item": [
+						{
+							"name": "delete user 1 (check consequences)",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "test create appointment (conflic checks)",
+					"item": [
+						{
+							"name": "create appointment 7 (user 6)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",\r\n    \"day\":\"2021-10-06\",\r\n    \"starttime\":\"13:00:00\",\r\n    \"endtime\":\"14:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/1/appointments/newappointment",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"1",
+										"appointments",
+										"newappointment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create appointment 8 (user 6)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",\r\n    \"day\":\"2021-10-06\",\r\n    \"starttime\":\"16:00:00\",\r\n    \"endtime\":\"17:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/6/appointments/newappointment",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"6",
+										"appointments",
+										"newappointment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create appointment 9 (user 7)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",\r\n    \"day\":\"2021-10-06\",\r\n    \"starttime\":\"15:00:00\",\r\n    \"endtime\":\"17:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/7/appointments/newappointment",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"7",
+										"appointments",
+										"newappointment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create appointment 10 (user 5)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",\r\n    \"day\":\"2021-10-06\",\r\n    \"starttime\":\"15:00:00\",\r\n    \"endtime\":\"17:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/7/appointments/newappointment",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"7",
+										"appointments",
+										"newappointment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add user 7 to apmt 7",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",    \r\n    \"day\":\"2021-10-09\",\r\n    \"starttime\":\"13:00:00\",\r\n    \"endtime\":\"14:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/6/appointments/24/users/7",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"6",
+										"appointments",
+										"24",
+										"users",
+										"7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add user 7 to apmt 8 (conflict)",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",    \r\n    \"day\":\"2021-10-09\",\r\n    \"starttime\":\"13:00:00\",\r\n    \"endtime\":\"14:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/6/appointments/26/users/7",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"6",
+										"appointments",
+										"26",
+										"users",
+										"7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add user 7 to apmt 10 (conflict)",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",    \r\n    \"day\":\"2021-10-09\",\r\n    \"starttime\":\"13:00:00\",\r\n    \"endtime\":\"14:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/5/appointments/30/users/7",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"5",
+										"appointments",
+										"30",
+										"users",
+										"7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create (start>end)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",\r\n    \"day\":\"2021-10-06\",\r\n    \"starttime\":\"15:00:00\",\r\n    \"endtime\":\"14:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/6/appointments/newappointment",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"6",
+										"appointments",
+										"newappointment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create (conflict 1)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",\r\n    \"day\":\"2021-10-06\",\r\n    \"starttime\":\"13:00:00\",\r\n    \"endtime\":\"14:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/6/appointments/newappointment",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"6",
+										"appointments",
+										"newappointment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create (conflict 2)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",\r\n    \"day\":\"2021-10-06\",\r\n    \"starttime\":\"13:30:00\",\r\n    \"endtime\":\"14:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/6/appointments/newappointment",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"6",
+										"appointments",
+										"newappointment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create (conflict 3)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",\r\n    \"day\":\"2021-10-06\",\r\n    \"starttime\":\"13:30:00\",\r\n    \"endtime\":\"15:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/6/appointments/newappointment",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"6",
+										"appointments",
+										"newappointment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create (conflict 4)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",\r\n    \"day\":\"2021-10-06\",\r\n    \"starttime\":\"13:00:00\",\r\n    \"endtime\":\"13:30:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/6/appointments/newappointment",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"6",
+										"appointments",
+										"newappointment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create (conflict 5)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",\r\n    \"day\":\"2021-10-06\",\r\n    \"starttime\":\"12:00:00\",\r\n    \"endtime\":\"13:30:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/7/appointments/newappointment",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"7",
+										"appointments",
+										"newappointment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create (conflict 6)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",\r\n    \"day\":\"2021-10-06\",\r\n    \"starttime\":\"12:00:00\",\r\n    \"endtime\":\"15:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/7/appointments/newappointment",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"7",
+										"appointments",
+										"newappointment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create (conflict 7)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",\r\n    \"day\":\"2021-10-06\",\r\n    \"starttime\":\"13:00:00\",\r\n    \"endtime\":\"16:30:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/7/appointments/newappointment",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"7",
+										"appointments",
+										"newappointment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create (no conflict 1)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",\r\n    \"day\":\"2021-10-06\",\r\n    \"starttime\":\"12:00:00\",\r\n    \"endtime\":\"13:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/6/appointments/newappointment",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"6",
+										"appointments",
+										"newappointment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create (no conflict 2)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",\r\n    \"day\":\"2021-10-06\",\r\n    \"starttime\":\"14:00:00\",\r\n    \"endtime\":\"15:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/6/appointments/newappointment",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"6",
+										"appointments",
+										"newappointment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create (no conflict 3)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",\r\n    \"day\":\"2021-10-06\",\r\n    \"starttime\":\"11:00:00\",\r\n    \"endtime\":\"12:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/6/appointments/newappointment",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"6",
+										"appointments",
+										"newappointment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create (no conflict 4)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",\r\n    \"day\":\"2021-10-06\",\r\n    \"starttime\":\"15:00:00\",\r\n    \"endtime\":\"16:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/6/appointments/newappointment",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"6",
+										"appointments",
+										"newappointment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get apmts of user 6",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/6/appointments/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"6",
+										"appointments",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get apmts of user 7",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/7/appointments/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"7",
+										"appointments",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "test delete appointment",
+					"item": [
+						{
+							"name": "delete appointment 7 (invalid user)",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/7/appointments/24",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"7",
+										"appointments",
+										"24"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete appointment 7 (valid user)",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/6/appointments/24",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"6",
+										"appointments",
+										"24"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get apmts of user 6",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/6/appointments/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"6",
+										"appointments",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get apmts of user 7",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/7/appointments/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"7",
+										"appointments",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "test update appointment",
+					"item": [
+						{
+							"name": "create appointment 11 (user 4)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",\r\n    \"day\":\"2021-10-06\",\r\n    \"starttime\":\"08:00:00\",\r\n    \"endtime\":\"09:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/4/appointments/newappointment",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"4",
+										"appointments",
+										"newappointment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add user 7 to apmt 11",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",    \r\n    \"day\":\"2021-10-09\",\r\n    \"starttime\":\"13:00:00\",\r\n    \"endtime\":\"14:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/4/appointments/41/users/7",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"4",
+										"appointments",
+										"41",
+										"users",
+										"7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update (start>end)",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",\r\n    \"day\":\"2021-10-06\",\r\n    \"starttime\":\"15:00:00\",\r\n    \"endtime\":\"14:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/4/appointments/41",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"4",
+										"appointments",
+										"41"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update appointment (invalid user)",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",    \r\n    \"day\":\"2021-10-10\",\r\n    \"starttime\":\"13:00:00\",\r\n    \"endtime\":\"14:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/7/appointments/41",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"7",
+										"appointments",
+										"41"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update (conflict)",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",\r\n    \"day\":\"2021-10-06\",\r\n    \"starttime\":\"13:30:00\",\r\n    \"endtime\":\"14:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/4/appointments/41",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"4",
+										"appointments",
+										"41"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update appointment (valid user)",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "AcceptVersion",
+										"value": "v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"title\",    \r\n    \"day\":\"2021-10-09\",\r\n    \"starttime\":\"10:00:00\",\r\n    \"endtime\":\"11:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/users/4/appointments/41",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"4",
+										"appointments",
+										"41"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
