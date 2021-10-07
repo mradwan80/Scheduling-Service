@@ -126,15 +126,11 @@ public class ScheduleService {
         }
         if(conflict)
         {
-            //conflictMessage="Can not update the appointment with these data and time values. They conflict with the following appointment(s):\n"+conflictMessage;
             return conflictMessage;
         }
         else
             return "";
     }
-
-
-
 
     /////////////////
     //Users functions//
@@ -169,8 +165,7 @@ public class ScheduleService {
         if(!users.existsById(id))
            return "user does not exist";
 
-        Optional<User> optuser=users.findById(id);
-        User user=optuser.get();
+        User user=users.findById(id).get();
         user.setFirstname(fname);
         user.setLastname(lname);
         user.setAddress(address);
@@ -269,26 +264,7 @@ public class ScheduleService {
 
         String conflictMessage = ConflictAppointmentVsParticipatingUserAppointments(ruid,newAppointment,null);
         if(conflictMessage!="")
-            return "Can not update the appointment with these data and time values. They conflict with the following appointment(s):\n"+conflictMessage;
-
-        //get appointments of ruid. check if conflicts exist with new appointment.//
-        /*boolean conflict=false;
-        String conflictMessage="";
-        List<Appointment> appointmentList=getAppointmentsOfParticipatingUser(ruid);
-        for(Appointment appointmenti:appointmentList)
-        {
-            if(ConflictExists(inputAppointment.getDay(), inputAppointment.getStarttime(), inputAppointment.getEndtime(), appointmenti.getDay(), appointmenti.getStarttime(), appointmenti.getEndtime()))
-            {
-                conflict=true;
-                conflictMessage=conflictMessage+appointmenti.getDay().toString()+", from "+appointmenti.getStarttime().toString()+" to "+appointmenti.getEndtime().toString()+"\n";
-            }
-        }
-        if(conflict)
-        {
-            conflictMessage="Can not update the appointment with these data and time values. They conflict with the following appointment(s):\n"+conflictMessage;
-            return conflictMessage;
-        }*/
-
+            return "Can not create the appointment with these date and time values. They conflict with the following appointment(s):\n"+conflictMessage;
 
         appointments.save(newAppointment);
 
@@ -308,35 +284,12 @@ public class ScheduleService {
             return "appointment does not exist";
 
         //get appointment with id appid. check ruid is the responsible user//
-        /*Optional<Appointment> optAppointment=appointments.findById(appid);
-        Appointment appointment=optAppointment.get();*/
         Appointment appointment=appointments.findById(appid).get();
         if(ruid!=appointment.getUser())
             return "user is not authorized to update the appointment";
 
 
         //get appointments of ruid. check if conflicts exist with new appointment.//
-        /*boolean conflict=false;
-        String conflictMessage="";
-
-        List<Appointment> appointmentList=getAppointmentsByUserID(ruid);
-        for(Appointment appointmenti:appointmentList)
-        {
-            if(appointmenti.getId()==appid)    //do not compare with original appointment//
-                continue;
-
-            if(ConflictExists(day, starttime, endtime, appointmenti.getDay(), appointmenti.getStarttime(), appointmenti.getEndtime()))
-            {
-                conflict=true;
-                conflictMessage=conflictMessage+appointmenti.getDay().toString()+", from "+appointmenti.getStarttime().toString()+" to "+appointmenti.getEndtime().toString()+"\n";
-            }
-        }
-        if(conflict)
-        {
-            conflictMessage="Can not update the appointment with these data and time values. They conflict with the following appointment(s):\n"+conflictMessage;
-            return conflictMessage;
-        }*/
-
         String conflictMessage="";
         List<AppointmentUser> appointmentUserList = getAppointmentUserPairsOfAppointment(appid);
         for(AppointmentUser appointmentUser:appointmentUserList) {
@@ -344,7 +297,7 @@ public class ScheduleService {
             conflictMessage = conflictMessage+Msg;
         }
         if(conflictMessage.length()!=0)
-            return "Can not update the appointment with these data and time values. They conflict with the following appointment(s):\n"+conflictMessage;
+            return "Can not update the appointment with these date and time values. They conflict with the following appointment(s):\n"+conflictMessage;
 
 
 
@@ -365,8 +318,7 @@ public class ScheduleService {
             return "appointment does not exist";
 
         //get appointment with id appid. check ruid is the responsible user//
-        Optional<Appointment> optAppointment=appointments.findById(appid);
-        Appointment appointment=optAppointment.get();
+        Appointment appointment=appointments.findById(appid).get();
         if(ruid != appointment.getUser())
             return "user is not authorized to delete the appointment";
 
@@ -391,8 +343,7 @@ public class ScheduleService {
             return "user does not exist";
 
         //get appointment with id appid. check ruid is the responsible user//
-        Optional<Appointment> optAppointment=appointments.findById(appid);
-        Appointment appointment=optAppointment.get();
+        Appointment appointment=appointments.findById(appid).get();
         if(ruid != appointment.getUser())
             return "user is not authorized to add another user to  the appointment";
 
@@ -403,33 +354,14 @@ public class ScheduleService {
 
         String conflictMessage = ConflictAppointmentVsParticipatingUserAppointments(uid,appointment,null);
         if(conflictMessage!="")
-            return "Can not update the appointment with these data and time values. They conflict with the following appointment(s):\n"+conflictMessage;
+            return "Can not add the user to an appointment with these date and time values. They conflict with the following appointment(s):\n"+conflictMessage;
 
-        //get appointments of uid. check if conflicts exist with new appointment.//
-        /*boolean conflict=false;
-        String conflictMessage="";
-        List<Appointment> appointmentList=getAppointmentsOfParticipatingUser(uid);
-        for(Appointment appointmenti:appointmentList)
-        {
-
-            if(ConflictExists(appointment.getDay(), appointment.getStarttime(), appointment.getEndtime(), appointmenti.getDay(), appointmenti.getStarttime(), appointmenti.getEndtime()))
-            {
-                conflict=true;
-                conflictMessage=conflictMessage+appointmenti.getDay().toString()+", from "+appointmenti.getStarttime().toString()+" to "+appointmenti.getEndtime().toString()+"\n";
-            }
-        }
-        if(conflict)
-        {
-            conflictMessage="Can not update the appointment with these data and time values. They conflict with the following appointment(s):\n"+conflictMessage;
-            return conflictMessage;
-        }*/
-
-
+        //save user as participant//
         appointmentsUsers.save(new AppointmentUser(null,appid,uid));
         return "user added as a participant to the appointment";
     }
 
-    //The user responsible fro an appointment can not delete himself from it. later, will provide a function to allow the responsible user to assign another one, and can then delete himself//
+    //Note: The user responsible for an appointment can not delete himself from it. later, will provide a function to allow the responsible user to assign another one, and can then delete himself//
     public String DeleteUserFromAppointment(Long ruid, Long appid, Long uid)
     {
         //make sure appointment exists//
@@ -445,8 +377,7 @@ public class ScheduleService {
             return "user does not exist";
 
         //get appointment with id appid. check ruid is the responsible user//
-        Optional<Appointment> optAppointment=appointments.findById(appid);
-        Appointment appointment=optAppointment.get();
+        Appointment appointment=appointments.findById(appid).get();
         if(ruid != appointment.getUser())
             return "user is not authorized to remove another user from  the appointment";
 

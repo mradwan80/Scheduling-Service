@@ -1,5 +1,6 @@
 package management.personnel;
 
+import management.personnel.DataStructures.AppointmentOutput;
 import management.personnel.models.Appointment;
 import management.personnel.models.User;
 import management.personnel.services.ScheduleService;
@@ -140,14 +141,13 @@ class PersonnelApplicationTests {
 		service.createAppointment(user2.getId(), new Appointment(null, null,"title",LocalDate.of(2021, 10, 7),LocalTime.of(13,0),LocalTime.of(14,0)));
 		service.createAppointment(user1.getId(), new Appointment(null, null,"title",LocalDate.of(2021, 10, 8),LocalTime.of(13,0),LocalTime.of(14,0)));
 
-		/*List<Appointment> Lbefore=service.getUserAppointments(user1.getId());
-
+		List<AppointmentOutput> Lbefore=service.getUserAppointments(user1.getId());
 
 		service.deleteUser(user1.getId());
 
-		List<Appointment> Lafter=service.getUserAppointments(user1.getId());
+		List<AppointmentOutput> Lafter=service.getUserAppointments(user1.getId());
 
-		assertEquals(2, Lbefore.size()-Lafter.size());*/
+		assertEquals(2, Lbefore.size()-Lafter.size());
 
 	}
 
